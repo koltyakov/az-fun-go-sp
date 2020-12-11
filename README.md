@@ -71,6 +71,10 @@ Depending on SharePoint environment and use case, [auth strategy](https://go.spf
 
 `spauth.go/init` handler should be aligned with authentication parameters.
 
+## SharePoint API in Go
+
+API layer is powered by [gosip](https://github.com/koltyakov/gosip).
+
 ## Reference
 
 - [Azure Functions custom handlers](https://docs.microsoft.com/en-us/azure/azure-functions/functions-custom-handlers)
