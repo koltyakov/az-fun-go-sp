@@ -1,0 +1,10 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "custom",
+    "SPAUTH_SITEURL": "https://contoso.sharepoint.com/sites/site",
+    "SPAUTH_CLIENTID": "b7966a62-8884-48a4-9755-2c3256531e84",
+    "SPAUTH_CLIENTSECRET": "CgnihMbRphqRKX...BF0M7XLlZ/0QCgw="
+  }
+}
