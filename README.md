@@ -6,13 +6,16 @@
 - [Go SDK](https://golang.org/dl/)
 - [Visual Studio Code](https://code.visualstudio.com) & [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
+> Mac or Linux machine, or Windows WSL2 are preferred.
+> All the commands within the sample assumed running in `bash`.
+
 ## Create Azure Function Resource
 
-> This flow is dev friendly when it comes for quick experiments. For production deployments please concider infrustructure as code and automation via DevOps.
+> This flow is dev friendly when it comes to quick experiments. For production deployments please consider infrastructure as code and automation via DevOps.
 
-In VS Code with Azure Functions entension installed:
+In VS Code with Azure Functions extension installed:
 
-- `CMD+Shift+P` type `Azure Functions: Create Function App in Azure... (Advanced)` and folow the wizard (further is the example of the steps)
+- `CMD+Shift+P` type `Azure Functions: Create Function App in Azure... (Advanced)` and follow the wizard (further is the example of the steps)
 - Select dev subscription
 - Enter a globally unique name for the new function app
 - Select a runtime stack: `Custom Handler`
@@ -28,7 +31,7 @@ In VS Code with Azure Functions entension installed:
 
 > Don't forget to remove the resource group after experiments to avoid any unpredictable charges
 
-## Local debug
+## Local start/debug
 
 - Copy/rename `local.settings.sample.json` to `local.settings.json`.
 - Provide authentication parameters:
@@ -38,8 +41,20 @@ In VS Code with Azure Functions entension installed:
 
 [Add-in Only auth](https://go.spflow.com/auth/strategies/addin) is used as a sample.
 
-- Start local server with ```make start```
+- Start the local server with ```make start```
 - Navigate to one of the URL endpoints printed in the console
+
+## Debugging Go code
+
+For breaking points debugging in VSCode a number of approaches can be used: attaching to process or connecting to server. In most cases, one would prefer restarting Go server without stoping and restarting `func start` session. Also, it's simpler to place a breakpoint, switch to `main.go` file, and launch debug. Such a scenario can be covered with:
+
+```bash
+make debug
+```
+
+The local function app is started without actually starting the Go side-car server, but mimicking the process for functions core utility.
+
+Then, the Go application can be started or restarted as many times as needed, e.g. using `go run ./` or launch debug UI.
 
 ## Build and deploy
 
@@ -51,7 +66,7 @@ make build-linux
 
 The assumption is that a Linux plan was selected for the function app.
 
-The build creates `bin/server` binary with Go custom handler.
+The build creates `bin/server` binary with the Go custom handler.
 
 2\. In VSCode,
 
@@ -60,20 +75,30 @@ The build creates `bin/server` binary with Go custom handler.
 - Select Function App in Azure
 - Confirm deployment
 
+## Publish via CLI
+
+```bash
+make appname="functionapp_name" publish
+```
+
+where `"functionapp_name"` is the name of your Function App instance.
+
+> `az` CLI is required.
+
 ## Configure environment variables
 
-In Azure Function app, create and provide the following environment variables:
+In the Azure Function app, create and provide the following environment variables:
 - SPAUTH_SITEURL
 - SPAUTH_CLIENTID
 - SPAUTH_CLIENTSECRET
 
-Depending on SharePoint environment and use case, [auth strategy](https://go.spflow.com/auth/strategies) can be different. For a production installation [Azure Certificate Auth](https://go.spflow.com/auth/custom-auth/azure-certificate-auth) might be prefered.
+Depending on the SharePoint environment and use case, [auth strategy](https://go.spflow.com/auth/strategies) can be different. For a production installation [Azure Certificate Auth](https://go.spflow.com/auth/custom-auth/azure-certificate-auth) might be preferred.
 
 `spauth.go/init` handler should be aligned with authentication parameters.
 
 ## SharePoint API in Go
 
-API layer is powered by [gosip](https://github.com/koltyakov/gosip).
+The API layer is powered by [gosip](https://github.com/koltyakov/gosip).
 
 ## Reference
 

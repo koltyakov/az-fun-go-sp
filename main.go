@@ -12,7 +12,7 @@ func main() {
 	http.HandleFunc("/api/GetLists", getListsHandler)
 	http.HandleFunc("/api/GetFields", getFieldsHandler)
 
-	log.Printf("About to listen on %s. Go to https://127.0.0.1%s/", listenAddr, listenAddr)
+	log.Printf("Go server has been started on http://127.0.0.1%s/", listenAddr)
 	log.Fatal(http.ListenAndServe(listenAddr, nil))
 }
 
