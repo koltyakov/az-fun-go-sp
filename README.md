@@ -1,5 +1,7 @@
 # Azure Functions Golang & SharePoint Sample
 
+![banner](./assets/banner.png)
+
 ## Prerequisites
 
 - [Azure Functions Core Tools, v3](https://www.npmjs.com/package/azure-functions-core-tools)
