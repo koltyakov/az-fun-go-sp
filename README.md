@@ -31,6 +31,22 @@ In VS Code with Azure Functions extension installed:
 
 > Don't forget to remove the resource group after experiments to avoid any unpredictable charges
 
+## Project structure highlights
+
+- `.vscode/` - VSCode settings folder, mostly standard, however, `settings.json` has important modification `"azureFunctions.deploySubpath": "./functions"` which changes root folder for functions deployment via `ms-azuretools` extension
+- `functions/` - everything related to Azure Functions, isolation makes things simpler while no mixing with custom handler related project files
+  - Functions folders, containing `function.json` file
+  - `.funcignore` - functions ignore file with handy ignore options
+  - `host.json` - host configuration file, mostly standard, interesting and important section is `customHandler`, expecially `"enableForwardingHttpRequest": true` which is not added by default but required
+  - `local.settings[.sample].json` - contains configuration which is needed for local development and debug, local settings should be excluded from Git to avoid secrets leak
+  - `proxies.json` - bypassing endpoints to external resources
+- `handlers/` - Handlers sub package grouping by extensible handlers methods
+- `debug.go` - grabs Azure Functions settings to use when starting the handlers server separately, is not included into production build
+- `main.go` - Custom Handler Go server entry point
+- `mux.go` - routes and handler binding configuration
+- `sp.go` - SharePoint Client and authentication constructor
+- `Makefile` - useful tasks/commands collection for project automation
+
 ## Local start/debug
 
 - Copy/rename `local.settings.sample.json` to `local.settings.json`.
