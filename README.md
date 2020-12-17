@@ -61,7 +61,7 @@ Then, the Go application can be started or restarted as many times as needed, e.
 1\. Run build command:
 
 ```bash
-make build-linux
+make build-prod
 ```
 
 The assumption is that a Linux plan was selected for the function app.
@@ -94,7 +94,7 @@ In the Azure Function app, create and provide the following environment variable
 
 Depending on the SharePoint environment and use case, [auth strategy](https://go.spflow.com/auth/strategies) can be different. For a production installation [Azure Certificate Auth](https://go.spflow.com/auth/custom-auth/azure-certificate-auth) might be preferred.
 
-`spauth.go/init` handler should be aligned with authentication parameters.
+`sp.go/getSP` handler should be aligned with authentication parameters.
 
 ## SharePoint API in Go
 

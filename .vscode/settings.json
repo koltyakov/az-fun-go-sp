@@ -1,11 +1,11 @@
 {
-  "azureFunctions.deploySubpath": ".",
+  "azureFunctions.deploySubpath": "./functions",
   "azureFunctions.projectLanguage": "Custom",
   "azureFunctions.projectRuntime": "~3",
   "debug.internalConsoleOptions": "neverOpen",
   "files.exclude": {
-    "bin/": true,
-    "tmp/": true
+    "**/bin/": true,
+    "**/tmp/": true
   }, 
   "editor.tabSize": 2
 }

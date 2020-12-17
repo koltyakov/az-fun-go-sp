@@ -1,17 +1,24 @@
+//+build !prod
+
 package main
 
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"runtime"
 	"strings"
 )
 
+// Debug mode configs exposure
+// binds Azure Functions local settings and FUNCTIONS_CUSTOMHANDLER_PORT via .env
+
 func init() {
-	// Debug mode configs exposure
-	readDebugDotEnv()
+	log.Println("Debug mode is initiated")
+	readDebugDotEnv("./functions/tmp/.env")
+	readDebugDotEnv("./tmp/.env")
 }
 
 func resolveCnfgPath(relativePath string) string {
@@ -19,8 +26,8 @@ func resolveCnfgPath(relativePath string) string {
 	return path.Join(path.Dir(filename), relativePath)
 }
 
-func readDebugDotEnv() {
-	envFilePath := resolveCnfgPath("./tmp/.env")
+func readDebugDotEnv(dotEnvPath string) {
+	envFilePath := resolveCnfgPath(dotEnvPath)
 	envFile, err := os.Open(envFilePath)
 	if err != nil {
 		return

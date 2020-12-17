@@ -6,13 +6,13 @@ import (
 	"os"
 )
 
+var (
+	listenAddr = getAddr()
+)
+
 func main() {
-	listenAddr := getAddr()
-
-	http.HandleFunc("/api/GetLists", getListsHandler)
-	http.HandleFunc("/api/GetFields", getFieldsHandler)
-
-	log.Printf("Go server has been started on http://127.0.0.1%s/", listenAddr)
+	initRoutes()
+	log.Printf("Custom handlers server is running on http://127.0.0.1%s", listenAddr)
 	log.Fatal(http.ListenAndServe(listenAddr, nil))
 }
 

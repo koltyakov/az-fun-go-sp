@@ -1,26 +1,30 @@
-appname := az-fun-go-sp
+appname  := az-fun-go-sp
+funcRoot := ./functions
+srvPath  := ./functions/bin/server
 
-start: build-local
-	func start
+start:
+	@go build -tags "prod" -o $(funcRoot)/bin/server ./
+	@cd $(funcRoot) && func start # --verbose
 
+# Make fake server and shares the dynamic port which Functions are uses for custom handler session
+# Then Go server debug can be started in a usual way
 debug:
-	# Make fake server and shares the dynamic port which Functions are uses for custom handler session
-	# Then Go server debug can be started in a usual way
-	mkdir -p bin tmp && \
-		echo "#!/bin/bash" > ./bin/server && \
-		echo "echo \"Custom handler port: \$$FUNCTIONS_CUSTOMHANDLER_PORT\"" >> ./bin/server && \
-		echo "printenv > ./tmp/.env" >> ./bin/server && \
-		chmod +x ./bin/server
-	func start
+	@mkdir -p $(funcRoot)/bin $(funcRoot)/tmp && \
+		echo "#!/bin/bash" > $(srvPath) && \
+		echo "echo \"You should start custom handlers on http://127.0.0.1:\$$FUNCTIONS_CUSTOMHANDLER_PORT to debug.\"" >> $(srvPath) && \
+		echo "echo \"This can be done by \\\"go run ./\\\" or VSCode Launch action.\"" >> $(srvPath) && \
+		echo "printenv > ./tmp/.env" >> $(srvPath) && \
+		chmod +x $(srvPath)
+	@cd $(funcRoot) && func start
 
-build-local:
-	go build -o bin/server ./...
+build:
+	go build -o ./bin/server ./
 
-build-linux: clean
-	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -o bin/server ./...
+build-prod: clean
+	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -tags "prod" -o $(funcRoot)/bin/server ./
 
-publish: build-linux
-	func azure functionapp publish $(appname)
+publish: build-prod
+	cd $(funcRoot) && func azure functionapp publish $(appname)
 
 clean:
-	rm -rf bin/ tmp/
+	rm -rf bin/ tmp/ $(funcRoot)/bin/ $(funcRoot)/tmp/
