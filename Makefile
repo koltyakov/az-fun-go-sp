@@ -8,8 +8,8 @@ debug:
 	# Then Go server debug can be started in a usual way
 	mkdir -p bin tmp && \
 		echo "#!/bin/bash" > ./bin/server && \
-    echo "echo \"Custom handler port: \$$FUNCTIONS_CUSTOMHANDLER_PORT\"" >> ./bin/server && \
-    echo "printenv > ./tmp/.env" >> ./bin/server && \
+		echo "echo \"Custom handler port: \$$FUNCTIONS_CUSTOMHANDLER_PORT\"" >> ./bin/server && \
+		echo "printenv > ./tmp/.env" >> ./bin/server && \
 		chmod +x ./bin/server
 	func start
 
