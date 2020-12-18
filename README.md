@@ -40,11 +40,11 @@ In VS Code with Azure Functions extension installed:
 - `functions/` - everything related to Azure Functions, isolation makes things simpler while no mixing with custom handler related project files
   - Functions folders, containing `function.json` file
   - `.funcignore` - functions ignore file with handy ignore options
-  - `host.json` - host configuration file, mostly standard, interesting and important section is `customHandler`, expecially `"enableForwardingHttpRequest": true` which is not added by default
+  - `host.json` - host configuration file, mostly standard, interesting and important section is `customHandler`, especially `"enableForwardingHttpRequest": true` which is not added by default
   - `local.settings[.sample].json` - contains configuration which is needed for local development and debug, local settings should be excluded from Git to avoid secrets leak
   - `proxies.json` - bypassing endpoints to external resources
 - `handlers/` - Handlers sub package grouping by extensible handlers methods
-- `debug.go` - grabs Azure Functions settings to use when starting the handlers server separately, is not included into production build
+- `debug.go` - grabs Azure Functions settings to use when starting the handlers' server separately, is not included into production build
 - `main.go` - Custom Handler Go server entry point
 - `mux.go` - routes and handler binding configuration
 - `sp.go` - SharePoint Client and authentication constructor

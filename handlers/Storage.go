@@ -52,5 +52,5 @@ func (h *Handlers) Storage(w http.ResponseWriter, r *http.Request) {
 
 	// Return previous state data
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	_ = json.NewEncoder(w).Encode(result)
 }

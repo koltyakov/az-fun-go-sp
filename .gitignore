@@ -24,3 +24,4 @@ local.settings.json
 # Misc
 .DS_Store
 .env
+.idea

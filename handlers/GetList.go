@@ -26,7 +26,5 @@ func (h *Handlers) GetLists(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(lists)
-
-	// fmt.Fprint(w, fmt.Sprintf("%s", data.Normalized()))
+	_ = json.NewEncoder(w).Encode(lists)
 }
