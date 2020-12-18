@@ -25,4 +25,7 @@ func initRoutes() {
 	http.HandleFunc("/api/GetLists", h.GetLists)
 	http.HandleFunc("/api/GetFields", h.GetFields)
 	http.HandleFunc("/api/Storage", h.Storage)
+
+	// Timer job(s)
+	http.HandleFunc("/Timer", h.Timer)
 }

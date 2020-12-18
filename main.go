@@ -6,12 +6,9 @@ import (
 	"os"
 )
 
-var (
-	listenAddr = getAddr()
-)
-
 func main() {
 	initRoutes()
+	listenAddr := getAddr()
 	log.Printf("Custom handlers server is running on http://127.0.0.1%s", listenAddr)
 	log.Fatal(http.ListenAndServe(listenAddr, nil))
 }

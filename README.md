@@ -40,7 +40,7 @@ In VS Code with Azure Functions extension installed:
 - `functions/` - everything related to Azure Functions, isolation makes things simpler while no mixing with custom handler related project files
   - Functions folders, containing `function.json` file
   - `.funcignore` - functions ignore file with handy ignore options
-  - `host.json` - host configuration file, mostly standard, interesting and important section is `customHandler`, expecially `"enableForwardingHttpRequest": true` which is not added by default but required
+  - `host.json` - host configuration file, mostly standard, interesting and important section is `customHandler`, expecially `"enableForwardingHttpRequest": true` which is not added by default
   - `local.settings[.sample].json` - contains configuration which is needed for local development and debug, local settings should be excluded from Git to avoid secrets leak
   - `proxies.json` - bypassing endpoints to external resources
 - `handlers/` - Handlers sub package grouping by extensible handlers methods
@@ -123,3 +123,4 @@ The API layer is powered by [gosip](https://github.com/koltyakov/gosip).
 
 - [Azure Functions custom handlers](https://docs.microsoft.com/en-us/azure/azure-functions/functions-custom-handlers)
 - [Create a Go function in Azure using VSCode](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-other)
+- [Functions Custom Handlers (Go)](https://github.com/Azure-Samples/functions-custom-handlers/tree/master/go)
