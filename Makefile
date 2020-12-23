@@ -26,5 +26,8 @@ build-prod: clean
 publish: build-prod
 	cd $(funcRoot) && func azure functionapp publish $(appname)
 
+install:
+	go get -u ./... && go mod tidy
+
 clean:
 	rm -rf bin/ tmp/ $(funcRoot)/bin/ $(funcRoot)/tmp/

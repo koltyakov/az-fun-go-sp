@@ -115,7 +115,91 @@ Depending on the SharePoint environment and use case, [auth strategy](https://go
 
 `sp.go/getSP` handler should be aligned with authentication parameters.
 
+## Overriding host's settings
+
+Azure Functions use .Net native approaches dealing with settings. Hierarchical settings can be overriden with environment variables.
+
+E.g., you need `server.exe` locally but a Linux Functions host still needs `server` (without extention) in `hosts.json`, it can be redefined in `local.settings.json` with a value:
+
+```jsonc
+{
+  // ...
+  "Values": {
+    // ...
+    "AzureFunctionsJobHost__customHandler__description__defaultExecutablePath": "bin/server.exe"
+  }
+}
+```
+
+## Adding new function
+
+1\. `CMD+Shift+P` type `Azure Functions: Create Function...`
+
+2\. Select a template for your function, e.g. `HTTP trigger`
+
+3\. Provide a function name. e.g. `HttpTrigger1`
+
+4\. Select authorization level, e.g. `Function`
+
+A function's folder and bindings definition is created `functions/HttpTrigger1/function.json`:
+
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [ "get", "post" ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
+```
+
+5.\ Run `make start` and follow via `http://localhost:7071/api/HttpTrigger1` for just created function's binding
+
+The Echo service handler will response with URL path `/api/HttpTrigger1`, that's because created function is not processed with specific route Go custom handler yet.
+
+`Ctrl+C` to stop running functions host.
+
+6\. Create `handlers/HttpTrigger1.go` and paste:
+
+```golang
+package handlers
+
+import (
+	"fmt"
+	"net/http"
+)
+
+// HTTPTrigger1 handles a function's logic
+func (h *Handlers) HTTPTrigger1(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	fmt.Fprintf(w, "Hello, %s!", name)
+}
+```
+
+7.\ Bind a handler with a route in `mux.go` in API routes section:
+
+```golang
+http.HandleFunc("/api/HttpTrigger1", h.HTTPTrigger1)
+```
+
+8\. Run `make start` and navigate to `http://localhost:7071/api/HttpTrigger1?name=Function`
+
+`Hello, Function!` should be responded back.
+
 ## SharePoint API in Go
+
+Check `handlers/GetFields.go` and `handlers/GetList.go` as samples of comuting with SharePoint instance.
+
+In a handler, `h.sp.` exposes access to SharePoint object model.
 
 The API layer is powered by [gosip](https://github.com/koltyakov/gosip).
 
@@ -125,3 +209,4 @@ The API layer is powered by [gosip](https://github.com/koltyakov/gosip).
 - [Create a Go function in Azure using VSCode](https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-other)
 - [Functions Custom Handlers (Go)](https://github.com/Azure-Samples/functions-custom-handlers/tree/master/go)
 - [Serverless Go in Azure Functions with custom handlers (video)](https://m.youtube.com/watch?v=RPCEH247twU)
+- [Working with SharePoint in Go](https://go.spflow.com/samples/basic-crud)
