@@ -1,6 +1,6 @@
 # Azure Functions Golang & SharePoint Sample
 
-![banner](./assets/banner.png)
+![banner](assets/banner.png)
 
 ## Prerequisites
 
