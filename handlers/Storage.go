@@ -11,14 +11,14 @@ import (
 // To make it run locally, don't forget providing `AzureWebJobsStorage`
 // in functions/local.settings.json
 
-const (
-	tableName    = "state"
-	partitionKey = "settings"
-	rowKey       = "workflow"
-)
-
 // Storage shows Azure Storage Account API basics
 func (h *Handlers) Storage(w http.ResponseWriter, r *http.Request) {
+	const (
+		tableName    = "state"
+		partitionKey = "settings"
+		rowKey       = "workflow"
+	)
+
 	tableCli := h.sa.GetTableService()
 	table := tableCli.GetTableReference(tableName)
 	entity := table.GetEntityReference(partitionKey, rowKey)
