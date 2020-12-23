@@ -26,6 +26,9 @@ func initRoutes() {
 	http.HandleFunc("/api/GetFields", h.GetFields)
 	http.HandleFunc("/api/Storage", h.Storage)
 
+	// Wildcard route /api/*
+	http.HandleFunc("/api/", h.Wildcard)
+
 	// Timer job(s)
 	http.HandleFunc("/Timer", h.Timer)
 }
