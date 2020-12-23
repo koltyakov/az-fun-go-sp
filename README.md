@@ -162,7 +162,7 @@ A function's folder and bindings definition is created `functions/HttpTrigger1/f
 }
 ```
 
-5.\ Run `make start` and follow via `http://localhost:7071/api/HttpTrigger1` for just created function's binding
+5\. Run `make start` and follow via `http://localhost:7071/api/HttpTrigger1` for just created function's binding
 
 The Echo service handler will response with URL path `/api/HttpTrigger1`, that's because created function is not processed with specific route Go custom handler yet.
 
@@ -185,7 +185,7 @@ func (h *Handlers) HTTPTrigger1(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-7.\ Bind a handler with a route in `mux.go` in API routes section:
+7\. Bind a handler with a route in `mux.go` in API routes section:
 
 ```golang
 http.HandleFunc("/api/HttpTrigger1", h.HTTPTrigger1)
