@@ -6,7 +6,7 @@ start:
 	@go build -tags "prod" -o $(funcRoot)/bin/server ./
 	@cd $(funcRoot) && func start # --verbose
 
-# Make fake server and shares the dynamic port which Functions are uses for custom handler session
+# Make fake server and shares the dynamic port which Functions use for custom handler session
 # Then Go server debug can be started in a usual way
 debug:
 	@mkdir -p $(funcRoot)/bin $(funcRoot)/tmp && \
