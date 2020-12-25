@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-// GetLists get SharePoint lists sample handler
-func (h *Handlers) GetLists(w http.ResponseWriter, r *http.Request) {
+// Lists get SharePoint lists sample handler
+func (h *Handlers) Lists(w http.ResponseWriter, r *http.Request) {
 	data, err := h.sp.Web().Lists().Select("Id,Title").Top(500).Get()
 	if err != nil {
 		http.Error(w, err.Error(), 500)

@@ -22,13 +22,13 @@ func initRoutes() {
 	h := handlers.NewHandlers(sp, sa)
 
 	// Binding Functions with Handlers
-	http.HandleFunc("/api/GetLists", h.GetLists)
-	http.HandleFunc("/api/GetFields", h.GetFields)
-	http.HandleFunc("/api/Storage", h.Storage)
+	http.HandleFunc("/api/lists", h.Lists)
+	http.HandleFunc("/api/fields", h.Fields)
+	http.HandleFunc("/api/storage", h.Storage)
 
 	// Wildcard route /api/*
 	http.HandleFunc("/api/", h.Wildcard)
 
 	// Timer job(s)
-	http.HandleFunc("/Timer", h.Timer)
+	http.HandleFunc("/timer", h.Timer)
 }

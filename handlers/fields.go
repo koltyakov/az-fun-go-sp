@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-// GetFields get SharePoint fields sample handler
-func (h *Handlers) GetFields(w http.ResponseWriter, r *http.Request) {
+// Fields get SharePoint fields sample handler
+func (h *Handlers) Fields(w http.ResponseWriter, r *http.Request) {
 	data, err := h.sp.Web().Fields().Select("InternalName,Title").Top(500).Get()
 	if err != nil {
 		http.Error(w, err.Error(), 500)

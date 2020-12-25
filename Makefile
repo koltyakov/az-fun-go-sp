@@ -21,7 +21,7 @@ build:
 	go build -o ./bin/server ./
 
 build-prod: clean
-	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -tags "prod" -o $(funcRoot)/bin/server ./
+	GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -tags "prod" -o $(funcRoot)/bin/server ./
 
 publish: build-prod
 	cd $(funcRoot) && func azure functionapp publish $(appname)

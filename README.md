@@ -7,7 +7,10 @@
 - [Azure Functions Core Tools, v3](https://www.npmjs.com/package/azure-functions-core-tools)
 - [Go SDK](https://golang.org/dl/)
 - [Visual Studio Code](https://code.visualstudio.com) & [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) [optional]
+
+### Nice to have but optional
+
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 > Mac or Linux machine, or Windows WSL2 are preferred.
 > All the commands within the sample assumed running in `bash`.
@@ -95,6 +98,8 @@ The build creates `bin/server` binary with the Go custom handler.
 - Confirm deployment
 
 ## Publish via CLI
+
+Publishing via CLI is a faster and more robust scalable way.
 
 ```bash
 make appname="functionapp_name" publish
@@ -197,7 +202,7 @@ http.HandleFunc("/api/HttpTrigger1", h.HTTPTrigger1)
 
 ## SharePoint API in Go
 
-Check `handlers/GetFields.go` and `handlers/GetList.go` as samples of comuting with SharePoint instance.
+Check `handlers/fields.go` and `handlers/lists.go` as samples of comuting with SharePoint instance.
 
 In a handler, `h.sp.` exposes access to SharePoint object model.
 
