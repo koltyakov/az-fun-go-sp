@@ -29,15 +29,10 @@ resource "azurerm_function_app" "functions" {
     SPAUTH_SITEURL           = var.sharepoint_siteurl
     SPAUTH_CLIENTID          = var.sharepoint_clientid
     SPAUTH_CLIENTSECRET      = var.sharepoint_clientsecret
+
     FUNCTION_APP_EDIT_MODE   = "readonly"
     HASH                     = base64encode(filesha256(var.package))
     WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.storage.name}.blob.core.windows.net/${azurerm_storage_container.deployments.name}/${azurerm_storage_blob.appcode.name}${data.azurerm_storage_account_sas.sas.sas}"
-  }
-
-  lifecycle {
-    ignore_changes = [
-      app_settings["WEBSITE_RUN_FROM_PACKAGE"], # prevent TF reporting configuration drift after app code is deployed
-    ]
   }
 
   tags = var.tags
@@ -50,10 +45,10 @@ data "azurerm_function_app_host_keys" "keys" {
   depends_on = [azurerm_function_app.functions]
 }
 
-output "function_app_default_hostname" {
+output "function_app_hostname" {
   value = azurerm_function_app.functions.default_hostname
 }
 
-output "azurerm_function_app_host_keys" {
+output "function_app_key" {
   value = data.azurerm_function_app_host_keys.keys.default_function_key
 }
