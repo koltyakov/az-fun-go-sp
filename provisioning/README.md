@@ -37,13 +37,13 @@ Plans provisioning, apply stuff in a dry mode.
 
 ## Functions app code packaging
 
-Before applying Terraform templates, Azure Functions package should be created with:
+Before applying Terraform templates, the Azure Functions package should be created with:
 
 ```bash
 make pack
 ```
 
-This will create `./package/functions.zip`, which is used as app code source deployed to Blobs and bounded with Azure Functions app via `WEBSITE_RUN_FROM_PACKAGE` environment variable and corresponding automation.
+This will create `./package/functions.zip`, which is used as an app code source deployed to Blobs and bounded with the Azure Functions app via `WEBSITE_RUN_FROM_PACKAGE` environment variable and corresponding automation.
 
 ## Applying infrastructure as code
 
@@ -63,6 +63,6 @@ make destroy
 
 > Don't run this for a prod as all the resources provisioned with Terraform templates will be removed.
 
-## Nice articles around topic
+## Nice articles around the topic
 
 - [Deploying an Azure Function App with Terraform](https://adrianhall.github.io/typescript/2019/10/23/terraform-functions/)
