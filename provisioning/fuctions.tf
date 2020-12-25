@@ -37,6 +37,15 @@ resource "azurerm_function_app" "functions" {
   tags = var.tags
 }
 
+data "azurerm_function_app_host_keys" "keys" {
+  name                = azurerm_function_app.functions.name
+  resource_group_name = azurerm_function_app.functions.resource_group_name
+}
+
 output "function_app_default_hostname" {
   value = azurerm_function_app.functions.default_hostname
+}
+
+output "azurerm_function_app_host_keys" {
+  value = data.azurerm_function_app_host_keys.keys.default_function_key
 }
