@@ -21,6 +21,7 @@ resource "azurerm_function_app" "functions" {
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
   https_only                 = true
+  os_type                    = "linux"
   version                    = "~3"
 
   app_settings = {
@@ -28,10 +29,15 @@ resource "azurerm_function_app" "functions" {
     SPAUTH_SITEURL           = var.sharepoint_siteurl
     SPAUTH_CLIENTID          = var.sharepoint_clientid
     SPAUTH_CLIENTSECRET      = var.sharepoint_clientsecret
-
     FUNCTION_APP_EDIT_MODE   = "readonly"
     HASH                     = base64encode(filesha256(var.package))
     WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.storage.name}.blob.core.windows.net/${azurerm_storage_container.deployments.name}/${azurerm_storage_blob.appcode.name}${data.azurerm_storage_account_sas.sas.sas}"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"], # prevent TF reporting configuration drift after app code is deployed
+    ]
   }
 
   tags = var.tags
@@ -40,6 +46,8 @@ resource "azurerm_function_app" "functions" {
 data "azurerm_function_app_host_keys" "keys" {
   name                = azurerm_function_app.functions.name
   resource_group_name = azurerm_function_app.functions.resource_group_name
+
+  depends_on = [azurerm_function_app.functions]
 }
 
 output "function_app_default_hostname" {
