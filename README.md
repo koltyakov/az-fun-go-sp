@@ -7,10 +7,7 @@
 - [Azure Functions Core Tools, v3](https://www.npmjs.com/package/azure-functions-core-tools)
 - [Go SDK](https://golang.org/dl/)
 - [Visual Studio Code](https://code.visualstudio.com) & [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-
-### Nice to have but optional
-
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) [optional]
 
 > Mac or Linux machine, or Windows WSL2 are preferred.
 > All the commands within the sample assumed running in `bash`.

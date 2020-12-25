@@ -23,6 +23,10 @@ build:
 build-prod: clean
 	GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -tags "prod" -o $(funcRoot)/bin/server ./
 
+pack: build-prod
+	@mkdir -p provisioning/package
+	cd $(funcRoot) && func pack -o ../provisioning/package/functions
+
 publish: build-prod
 	cd $(funcRoot) && func azure functionapp publish $(appname)
 

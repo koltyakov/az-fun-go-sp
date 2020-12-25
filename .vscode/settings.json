@@ -4,7 +4,12 @@
   "azureFunctions.projectRuntime": "~3",
   "debug.internalConsoleOptions": "neverOpen",
   "files.exclude": {
+    "**/.idea": true,
+    "**/.terraform": true,
+    "**/.terraform.tfstate.lock.info": true,
+    "**/.vscode": true,
     "**/bin/": true,
+    "**/terraform.tfstate.backup": true,
     "**/tmp/": true
   }, 
   "editor.tabSize": 2

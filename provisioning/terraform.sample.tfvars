@@ -1,0 +1,6 @@
+subscription_id         = "529f730b-4ac8-43b6-9851-221e735a71cf"
+location                = "westus2"
+function_app            = "az-fun-go-042"
+sharepoint_siteurl      = "https://contoso.sharepoint.com/sites/site"
+sharepoint_clientid     = "428b492b-575d-4d4b-991e-16195a3c496e"
+sharepoint_clientsecret = "CgnihMbRphqR....7XLlZ/0QCgw="
