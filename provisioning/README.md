@@ -83,7 +83,7 @@ Terraform `.tf` files' content composition mostly doesn't matter much until you 
 
 ### Functions App choices
 
-- Dynamic Linux plan
+#### Dynamic Linux plan
 
 I tend to believe and prefer serverless options first approach. Also, I'd chose Linux on a server in all cases when it works.
 
@@ -118,7 +118,7 @@ resource "azurerm_function_app" "functions" {
 }
 ```
 
-- SharePoint bindings
+#### SharePoint bindings
 
 ```hcl
 ## functions.tf
@@ -161,7 +161,7 @@ sharepoint_clientid     = "428b492b-575d-4d4b-991e-16195a3c496e"
 sharepoint_clientsecret = "CgnihMbRphqR....7XLlZ/0QCgw="
 ```
 
-- Package deployment
+#### Package deployment
 
 ```hcl
 ## functions.tf
