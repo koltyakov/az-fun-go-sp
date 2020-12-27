@@ -14,7 +14,7 @@
 
 ## Create Azure Function Resource
 
-> This flow is dev friendly when it comes to quick experiments. For production deployments please consider infrastructure as code and automation via DevOps.
+> This flow is dev friendly when it comes to quick experiments. For production deployments please consider [infrastructure as code and automation](./provisioning) via DevOps.
 
 In VS Code with Azure Functions extension installed:
 
