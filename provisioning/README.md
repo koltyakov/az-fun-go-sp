@@ -1,68 +1,13 @@
 # Function App Provisioning
 
+The sample shown automated reproducable Azure Functions App provisioning and deployment using Terraform.
+
+> Terraform is infrastructure as code software tool that provides a consistent CLI workflow to manage hundreds of cloud services. Terraform codifies cloud APIs into declarative configuration files `.tf`.
+
 ## Prerequisites
 
-- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/azure-get-started)
-  - [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/azure-get-started), [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-
-## Initiate provisioning (Terraform)
-
-```bash
-make init
-```
-
-## Variables
-
-- Copy & rename `terraform.sample.tfvars` to `terraform.tfvars`
-- Provide your variables
-
-```hcl
-subscription_id         = "529f730b-4ac8-43b6-9851-221e735a71cf"
-location                = "westus2"
-function_app            = "az-fun-go-042"
-sharepoint_siteurl      = "https://contoso.sharepoint.com/sites/site"
-sharepoint_clientid     = "428b492b-575d-4d4b-991e-16195a3c496e"
-sharepoint_clientsecret = "CgnihMbRphqR....7XLlZ/0QCgw="
-```
-
-> Avoid variables commit to Git repository
-
-## Plan before apply
-
-```bash
-make plan
-```
-
-Plans provisioning, apply stuff in a dry mode.
-
-## Functions app code packaging
-
-Before applying Terraform templates, the Azure Functions package should be created with:
-
-```bash
-make pack
-```
-
-This will create `./package/functions.zip`, which is used as an app code source deployed to Blobs and bounded with the Azure Functions app via `WEBSITE_RUN_FROM_PACKAGE` environment variable and corresponding automation.
-
-## Applying infrastructure as code
-
-```bash
-make apply
-```
-
-An alias of `terraform apply -auto-approve`, won't prompt for confirmation.
-
-Azure Functions and Custom Handlers in Go are now published and ready to use.
-
-## Destroying when done testing
-
-```bash
-make destroy
-```
-
-> Don't run this for a prod as all the resources provisioned with Terraform templates will be removed.
 
 ## Project structure
 
@@ -80,6 +25,68 @@ Terraform `.tf` files' content composition mostly doesn't matter much until you 
   - `.terraform/` folder - Terraform provider's binaries. Aka "node_modules/" of terraformation. Might have tangible size.
   - `terraform.tfstate` - remote state sync file.
   - `package/functions.zip` - custom handler deployment package produced with `make pack` command.
+
+## Initiate project
+
+Aka "npm install" for terraform providers. Initiates Terraform project and downloads missed provisioning providers.
+
+```bash
+make init
+```
+
+## Variables file
+
+Terraform variables are private dynamic values/inputs which are used in the templates allowing targeting the same tested definitions agains different environments or tenants. 
+
+- Copy & rename `terraform.sample.tfvars` to `terraform.tfvars`
+- Provide your variables
+
+```hcl
+subscription_id         = "529f730b-4ac8-43b6-9851-221e735a71cf"
+location                = "westus2"
+function_app            = "az-fun-go-042"
+sharepoint_siteurl      = "https://contoso.sharepoint.com/sites/site"
+sharepoint_clientid     = "428b492b-575d-4d4b-991e-16195a3c496e"
+sharepoint_clientsecret = "CgnihMbRphqR....7XLlZ/0QCgw="
+```
+
+> Avoid variables commit to Git repository
+
+## Plan before apply
+
+Plans provisioning, apply stuff in a dry mode. Can be useful for trubleshooting and verification of what a deployment will do. E.g. in some cases a deployment of a resource can't be done without destroying and recreating, which however might be unwanted behavior. With planning, you'd see what property causes such effect.
+
+```bash
+make plan
+```
+
+## Functions app code packaging
+
+Before applying Terraform templates, the Azure Functions package should be created with:
+
+```bash
+make pack
+```
+
+This will create `./package/functions.zip`, which is used as an app code source deployed to Blobs and bounded with the Azure Functions app via `WEBSITE_RUN_FROM_PACKAGE` environment variable and corresponding automation.
+
+## Applying infrastructure as code
+
+```bash
+make apply
+```
+
+The command is an alias of `terraform apply -auto-approve`, won't prompt for confirmation.
+
+Azure Functions and Custom Handlers in Go are now published and ready to use.
+
+## Destroying when done testing
+
+```bash
+make destroy
+```
+
+> Don't run this for a prod as all the resources provisioned with Terraform templates will be removed.
 
 ### Functions App choices
 
