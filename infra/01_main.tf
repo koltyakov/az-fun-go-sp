@@ -2,9 +2,10 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = ">= 2.41"
+      version = ">= 2.81"
     }
   }
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
@@ -14,7 +15,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.function_app}_RG"
+  name     = var.function_app
   location = var.location
   tags     = var.tags
 }
@@ -22,7 +23,7 @@ resource "azurerm_resource_group" "rg" {
 # Network configuration
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.function_app}_VNet"
+  name                = "${lower(replace(var.function_app, "-", ""))}"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -30,7 +31,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "${var.function_app}_Subnet"
+  name                 = "${lower(replace(var.function_app, "-", ""))}"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]

@@ -2,6 +2,11 @@ appname  := az-fun-go-sp
 funcRoot := ./functions
 srvPath  := ./functions/bin/server
 
+ifneq (,$(wildcard ./.env))
+	include .env
+	export
+endif
+
 start:
 	@go build -tags "prod" -o $(funcRoot)/bin/server ./
 	@cd $(funcRoot) && func start # --verbose
@@ -24,8 +29,8 @@ build-prod: clean
 	GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -tags "prod" -o $(funcRoot)/bin/server ./
 
 pack: build-prod
-	@mkdir -p provisioning/package
-	cd $(funcRoot) && func pack -o ../provisioning/package/functions
+	@mkdir -p infra/package
+	cd $(funcRoot) && func pack -o ../infra/package/functions
 
 publish: build-prod
 	cd $(funcRoot) && func azure functionapp publish $(appname)
@@ -34,4 +39,7 @@ install:
 	go get -u ./... && go mod tidy
 
 clean:
-	rm -rf bin/ tmp/ $(funcRoot)/bin/ $(funcRoot)/tmp/
+	rm -rf bin/ tmp/ $(funcRoot)/bin/ $(funcRoot)/tmp/ infra/package/
+
+terra:
+	cd infra && make terra

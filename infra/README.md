@@ -9,6 +9,30 @@ The sample shown automated reproducable Azure Functions App provisioning and dep
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/azure-get-started), [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
+## Initiate infra (Terraform)
+
+Read `State Backend` before initiating terraform.
+
+```bash
+make init
+```
+
+### State Backend
+
+The project uses [Azure Backend](https://www.terraform.io/docs/language/settings/backends/azurerm.html) for storing Terraform state.
+
+Before starting, copy `.env.sample` to `.env` and provide a valid `TERRAFORM_BACKEND_STORAGE_ACCOUNT`. The account should be created in your infrastructure first:
+
+- Create resource group: `Terraform`
+- Add storage account (which name goes to `TERRAFORM_BACKEND_STORAGE_ACCOUNT`)
+- Create `tfstate` container with private access
+
+Then run init command.
+
+### Local State
+
+To use local state, comment `backend "azurerm" {}` in `01_main.tf` model.
+
 ## Project structure
 
 Terraform `.tf` files' content composition mostly doesn't matter much until you feel comfortable with what is where and how structured for reusability or maintenance robustness. It can be all in one file on domain areas split between multiple `.tf`s.
