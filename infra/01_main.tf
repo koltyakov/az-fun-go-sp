@@ -22,7 +22,7 @@ resource "azurerm_resource_group" "rg" {
 # Network configuration
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${lower(replace(var.function_app, "-", ""))}"
+  name                = lower(replace(var.function_app, "-", ""))
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -30,7 +30,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "${lower(replace(var.function_app, "-", ""))}"
+  name                 = lower(replace(var.function_app, "-", ""))
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]

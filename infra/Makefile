@@ -16,7 +16,7 @@ validate:
 plan:
 	terraform plan
 
-apply:
+apply: pack
 	terraform apply -auto-approve
 
 terra: pack
@@ -24,6 +24,9 @@ terra: pack
 
 destroy:
 	terraform destroy
+
+lint:
+	tflint
 
 pack:
 	cd ../ && make pack

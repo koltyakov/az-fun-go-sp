@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage" {
-  name                     = "${lower(replace(var.function_app, "-", ""))}"
+  name                     = lower(replace(var.function_app, "-", ""))
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
