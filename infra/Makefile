@@ -10,6 +10,9 @@ init:
 		-backend-config="container_name=tfstate" \
 		-backend-config="key=az-fun-go-sp.dev.tfstate"
 
+format:
+	terraform fmt
+
 validate:
 	terraform validate
 

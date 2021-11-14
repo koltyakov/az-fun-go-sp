@@ -11,7 +11,7 @@ variable "function_app" {
 }
 
 variable "tags" {
-  type = map
+  type = map(any)
 
   default = {
     Environment = "Dev"

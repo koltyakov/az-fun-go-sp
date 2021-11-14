@@ -1,7 +1,7 @@
 {
   "azureFunctions.deploySubpath": "./functions",
   "azureFunctions.projectLanguage": "Custom",
-  "azureFunctions.projectRuntime": "~3",
+  "azureFunctions.projectRuntime": "~4",
   "debug.internalConsoleOptions": "neverOpen",
   "files.exclude": {
     "**/.idea": true,
@@ -11,6 +11,21 @@
     "**/bin/": true,
     "**/terraform.tfstate.backup": true,
     "**/tmp/": true
-  }, 
-  "editor.tabSize": 2
+  },
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+  },
+  "terraform-ls.experimentalFeatures": {
+    "validateOnSave": true,
+    "prefillRequiredFields": true
+  },
+  "terraform.languageServer": {
+    "external": true,
+    "args": [
+      "serve"
+    ]
+  }
 }
