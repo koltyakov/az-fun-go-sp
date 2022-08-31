@@ -9,6 +9,10 @@ The sample shown automated reproducable Azure Functions App provisioning and dep
 - [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/azure-get-started), [Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
+## Configs
+
+Copy and rename `.env.sample` to `.env` and `terraform.sample.tfvars` to `terraform.tfvars`, provide your variables.
+
 ## Initiate infra (Terraform)
 
 Read `State Backend` before initiating terraform.
@@ -16,6 +20,8 @@ Read `State Backend` before initiating terraform.
 ```bash
 make init
 ```
+
+Make sure that `az login` was previously established.
 
 ### State Backend
 
@@ -60,7 +66,7 @@ make init
 
 ## Variables file
 
-Terraform variables are private dynamic values/inputs which are used in the templates allowing targeting the same tested definitions agains different environments or tenants. 
+Terraform variables are private dynamic values/inputs which are used in the templates allowing targeting the same tested definitions agains different environments or tenants.
 
 - Copy & rename `terraform.sample.tfvars` to `terraform.tfvars`
 - Provide your variables

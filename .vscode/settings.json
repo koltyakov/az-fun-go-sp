@@ -7,7 +7,7 @@
     "**/.idea": true,
     "**/.terraform": true,
     "**/.terraform.tfstate.lock.info": true,
-    "**/.vscode": true,
+    "**/.vscode": false,
     "**/bin/": true,
     "**/terraform.tfstate.backup": true,
     "**/tmp/": true
@@ -18,14 +18,7 @@
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true,
   },
-  "terraform-ls.experimentalFeatures": {
-    "validateOnSave": true,
-    "prefillRequiredFields": true
-  },
-  "terraform.languageServer": {
-    "external": true,
-    "args": [
-      "serve"
-    ]
-  }
+  "terraform.languageServer.enable": true,
+  "terraform.experimentalFeatures.validateOnSave": true,
+  "terraform.experimentalFeatures.prefillRequiredFields": true
 }
