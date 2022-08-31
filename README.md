@@ -4,10 +4,11 @@
 
 ## Prerequisites
 
-- [Azure Functions Core Tools, v3](https://www.npmjs.com/package/azure-functions-core-tools)
+- [Azure Functions Core Tools, v4](https://www.npmjs.com/package/azure-functions-core-tools)
 - [Go SDK](https://golang.org/dl/)
 - [Visual Studio Code](https://code.visualstudio.com) & [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) [optional]
+- [Terraform](./infra/README.md) [optional, for IaC provisioning]
 
 > Mac or Linux machine, or Windows WSL2 are preferred.
 > All the commands within the sample assumed running in `bash`.
@@ -54,13 +55,13 @@ In VS Code with Azure Functions extension installed:
 
 - Copy/rename `local.settings.sample.json` to `local.settings.json`.
 - Provide authentication parameters:
-    - SPAUTH_SITEURL
-    - SPAUTH_CLIENTID
-    - SPAUTH_CLIENTSECRET
+  - SPAUTH_SITEURL
+  - SPAUTH_CLIENTID
+  - SPAUTH_CLIENTSECRET
 
 [Add-in Only auth](https://go.spflow.com/auth/strategies/addin) is used as a sample.
 
-- Start the local server with ```make start```
+- Start the local server with `make start`
 - Navigate to one of the URL endpoints printed in the console
 
 ## Debugging Go code
@@ -109,6 +110,7 @@ where `"functionapp_name"` is the name of your Function App instance.
 ## Configure environment variables
 
 In the Azure Function app, create and provide the following environment variables:
+
 - SPAUTH_SITEURL
 - SPAUTH_CLIENTID
 - SPAUTH_CLIENTSECRET
@@ -153,7 +155,7 @@ A function's folder and bindings definition is created `functions/HttpTrigger1/f
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": [ "get", "post" ]
+      "methods": ["get", "post"]
     },
     {
       "type": "http",
