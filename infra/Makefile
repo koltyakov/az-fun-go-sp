@@ -8,7 +8,7 @@ init:
 		-backend-config="resource_group_name=Terraform" \
 		-backend-config="storage_account_name=${TERRAFORM_BACKEND_STORAGE_ACCOUNT}" \
 		-backend-config="container_name=tfstate" \
-		-backend-config="key=az-fun-go-sp.dev.tfstate"
+		-backend-config="key=az-fun-go-sp.dev.tfstate" && tflint --init
 
 format:
 	terraform fmt
