@@ -125,28 +125,24 @@ make destroy
 I tend to believe and prefer serverless options first approach. Also, I'd chose Linux on a server in all cases when it works.
 
 ```hcl
-## functions.tf
+## 03_functions.tf
 
 # Service Plan
-resource "azurerm_app_service_plan" "service_plan" {
-  name = "${var.function_app}_Plan"
-  # ...
-
-  kind = "FunctionApp" # Azure Functions
-
-  sku {
-    tier = "Dynamic" # Dynamic App Service Plan
-    size = "Y1"      # Linux
-  }
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan
+resource "azurerm_service_plan" "service_plan" {
+  name                = var.function_app
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  os_type             = "Linux"
+  sku_name            = "Y1"
+  tags                = var.tags
 }
 
-# Function App
-resource "azurerm_function_app" "functions" {
+# Functions App
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app
+resource "azurerm_linux_function_app" "functions" {
   name = var.function_app
   # ...
-
-  os_type = "linux" # Currently if omitted might lead to Functions App redeployment on each apply
-  version = "~3"    # Latest Azure Functions version, required for Custom Handler support
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "custom" # Custom Handler runtime
@@ -158,9 +154,9 @@ resource "azurerm_function_app" "functions" {
 #### SharePoint bindings
 
 ```hcl
-## functions.tf
+## 03_functions.tf
 
-resource "azurerm_function_app" "functions" {
+resource "azurerm_linux_function_app" "functions" {
   name = var.function_app
   # ...
 
@@ -188,7 +184,7 @@ variable "sharepoint_clientid" {
 
 variable "sharepoint_clientsecret" {
   type        = string
-  description = "SharePoint CLient Secret"
+  description = "SharePoint Client Secret"
 }
 
 ## terraform.tfvars
@@ -201,9 +197,9 @@ sharepoint_clientsecret = "CgnihMbRphqR....7XLlZ/0QCgw="
 #### Package deployment
 
 ```hcl
-## functions.tf
+## 03_functions.tf
 
-resource "azurerm_function_app" "functions" {
+resource "azurerm_linux_function_app" "functions" {
   name = var.function_app
   # ...
 
@@ -217,7 +213,7 @@ resource "azurerm_function_app" "functions" {
   }
 }
 
-## storage.tf
+## 02_storage.tf
 
 resource "azurerm_storage_container" "deployments" {
   # ...

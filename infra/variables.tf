@@ -36,7 +36,7 @@ variable "sharepoint_clientid" {
 
 variable "sharepoint_clientsecret" {
   type        = string
-  description = "SharePoint CLient Secret"
+  description = "SharePoint Client Secret"
 }
 
 # Custom handlers package
