@@ -43,9 +43,9 @@ To use local state, comment `backend "azurerm" {}` in `01_main.tf` model.
 
 Terraform `.tf` files' content composition mostly doesn't matter much until you feel comfortable with what is where and how structured for reusability or maintenance robustness. It can be all in one file on domain areas split between multiple `.tf`s.
 
-- `main.tf` - main Terraform file, sort of an entry point. I used to place the provider, resource group, and network stanzas here.
-  - `storage.tf` - storage account is a pillar of an Azure Functions app. Here storage is combined with deployment via storage container blobs artifacts.
-  - `functions.tf` - functions app and service plan definitions, data automation outputs (such as provisioned functions hostname and function key).
+- `01_main.tf` - main Terraform file, sort of an entry point. I used to place the provider, resource group, and network stanzas here.
+  - `02_storage.tf` - storage account is a pillar of an Azure Functions app. Here storage is combined with deployment via storage container blobs artifacts.
+  - `03_functions.tf` - functions app and service plan definitions, data automation outputs (such as provisioned functions hostname and function key).
 - `variables.tf` - dynamic input variables definition.
   - `terraform.sample.tfvars` - sample variables file, ignored. For simpler copy & paste into `terraform.tfvars`.
   - `terraform.tfvars` - variables values files. Should not be included in the repo, might contain private data and secrets. The variables also can be provided with command line arguments.
